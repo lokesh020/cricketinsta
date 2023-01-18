@@ -1,0 +1,88 @@
+{
+  "project_info": {
+    "project_number": "720477655390",
+    "firebase_url": "https://cricketinsta-f59e8-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "cricketinsta-f59e8",
+    "storage_bucket": "cricketinsta-f59e8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:720477655390:android:44aa5d5c063a612abeffcf",
+        "android_client_info": {
+          "package_name": "com.cricketinsta.cricket"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "720477655390-9ssl97b8iirk4i4qid603m8aksm9jthi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cricketinsta.cricket",
+            "certificate_hash": "d153812f8771f5cc01fdd0b30b9b2190743cba5c"
+          }
+        },
+        {
+          "client_id": "720477655390-cct8drqhmp27ci1cq8mv0p2nl18ho0vf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cricketinsta.cricket",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "720477655390-e7gf4r76rl98r9qfad0qo896a620gt8t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cricketinsta.cricket",
+            "certificate_hash": "73a1fef6437f1176b4041528886e5a73f72be1cc"
+          }
+        },
+        {
+          "client_id": "720477655390-gjtb1kvb9v352vtmrqj8kbonrr5iv5oq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cricketinsta.cricket",
+            "certificate_hash": "724edd6822d9a55e04f7b036dd4c169d507a6bba"
+          }
+        },
+        {
+          "client_id": "720477655390-lv4ti7jsavdqomocktbpmrklft7tmqdk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cricketinsta.cricket",
+            "certificate_hash": "b4d5962b96eb43f5ecdc048b34b467673ce4c01c"
+          }
+        },
+        {
+          "client_id": "720477655390-t1eo0ogs7surgfnal8gpurh07np3o8cq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cricketinsta.cricket",
+            "certificate_hash": "2220ff5f5a380312f664619952e5f409711a35b8"
+          }
+        },
+        {
+          "client_id": "720477655390-ij48os7e728i4c2cqe7f1omermoosu14.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSTb2l91Oyir9gtN7hekOXDzcfi3EPJtA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "720477655390-ij48os7e728i4c2cqe7f1omermoosu14.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

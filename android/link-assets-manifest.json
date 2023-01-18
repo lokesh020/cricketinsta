@@ -1,0 +1,45 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/assets/fonts/Avenir-light.ttf",
+      "sha1": "6daa7f3e6a2eb7742aafd6af6f16def53c9a81e6"
+    },
+    {
+      "path": "src/assets/fonts/AvenirLTStd-Black.ttf",
+      "sha1": "0e5b44253e570ff23b13a911d9aa6e420bb0eff4"
+    },
+    {
+      "path": "src/assets/fonts/AvenirLTStd-Book.ttf",
+      "sha1": "929876d931dc3d26d0fcdc6413f7aaa5b59f88d8"
+    },
+    {
+      "path": "src/assets/fonts/AvenirLTStd-Heavy.ttf",
+      "sha1": "405e7be3263131dd5924fece95d7fa7f65ae8688"
+    },
+    {
+      "path": "src/assets/fonts/AvenirLTStd-Light.ttf",
+      "sha1": "0444a48a4a35df806705afd8cc0a1ede03427139"
+    },
+    {
+      "path": "src/assets/fonts/AvenirLTStd-Medium.ttf",
+      "sha1": "5f28ec3abafd3e44474f8e6d08bec1ade8a55641"
+    },
+    {
+      "path": "src/assets/fonts/Rift-Bold.otf",
+      "sha1": "2164ae872a0a2437db78c956e8218aba9770645e"
+    },
+    {
+      "path": "src/assets/fonts/Rift-Medium.otf",
+      "sha1": "5e0198a8fda75acb16683e5e73435dff18bcf4ee"
+    },
+    {
+      "path": "src/assets/fonts/Rift-Regular.otf",
+      "sha1": "aa68977e5ea8f84d201a362b819dcb238743c2f0"
+    },
+    {
+      "path": "src/assets/fonts/index.js",
+      "sha1": "f64f52a54ec63f7f390877c6f2d0366d2df26778"
+    }
+  ]
+}
