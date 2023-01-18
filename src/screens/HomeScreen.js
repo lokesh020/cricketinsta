@@ -31,8 +31,8 @@ const HomeScreen = ({navigation,route}) =>  {
     const getTodayLiveMatchAPI = () => {
         const apiUrl = WebConstants.match_list + "?status=3&token=" + Constants.match_api_token + "&per_page1&&paged=1"
         WebApi.getRequest(apiUrl).then((res)=>{
-            if (res.response.items.length > 0) {
-                const match = res.response.items[0]
+            if (res.data.response.items.length > 0) {
+                const match = res.data.response.items[0]
                 setLiveMatchState(match)
             }
         })

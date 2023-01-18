@@ -27,7 +27,10 @@ class WebApi {
             }).then((response) => {
                 if (response.data !== undefined) {
                     console.log("api response >>>>" + JSON.stringify(response.data))
-                    resolve(response.data)
+                    resolve({
+                        data : response.data,
+                        totalRecords : response.headers["x-wp-total"]
+                    })
                 }
             }).catch((error) => {
                 console.log("error in get request>>>> url >>>> " + requestPath + "========" + JSON.stringify(error))

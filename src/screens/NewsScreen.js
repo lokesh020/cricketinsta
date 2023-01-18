@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import { StyleSheet, ActivityIndicator, View, Image, Text, FlatList } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {useTheme} from '@shopify/restyle'
@@ -10,54 +10,102 @@ import Colors from '../themes/colors';
 import WebApi from '../utils/WebApi';
 import WebConstants from '../utils/WebConstants';
 import Constants from '../utils/constants';
+import RenderHTML from 'react-native-render-html';
 
 /*
 NewsScreen component 
 */
 const NewsScreen = ({navigation,route}) =>  {
 
-    const [news, setNews] = useState([
-        {
-            title : "Relief to see Dhananjaya among the runs: Naveed Nawaz",
-            description : "Sri Lanka assistant coach reckoned the team will go into the England game with a positive outlook as they remain alive in the T20 World Cup",
-            image : Image.resolveAssetSource(Images.news_img).uri
-        },
-        {
-            title : "Grappling KL Rahul has leadership group's unequivocal backing",
-            description : "I think in Rohit's and my mind, there's absolutely no doubt about who's going to open for us",
-            image : Image.resolveAssetSource(Images.news_img).uri
-        },
-        {
-            title : "No overhaul but WC showing to determine changes to selection committee",
-            description : "With a new dispensation in the BCCI in place, there is always this thinking to have a fresh start but the board will have little choice if the Indian team does well in the World Cup",
-            image : Image.resolveAssetSource(Images.news_img).uri
-        },
-        {
-            title : "No overhaul but WC showing to determine changes to selection committee",
-            description : "With a new dispensation in the BCCI in place, there is always this thinking to have a fresh start but the board will have little choice if the Indian team does well in the World Cup",
-            image : Image.resolveAssetSource(Images.news_img).uri
-        },
-        {
-            title : "No overhaul but WC showing to determine changes to selection committee",
-            description : "With a new dispensation in the BCCI in place, there is always this thinking to have a fresh start but the board will have little choice if the Indian team does well in the World Cup",
-            image : Image.resolveAssetSource(Images.news_img).uri
-        },
-        {
-            title : "No overhaul but WC showing to determine changes to selection committee",
-            description : "With a new dispensation in the BCCI in place, there is always this thinking to have a fresh start but the board will have little choice if the Indian team does well in the World Cup",
-            image : Image.resolveAssetSource(Images.news_img).uri
-        },
-        {
-            title : "No overhaul but WC showing to determine changes to selection committee",
-            description : "With a new dispensation in the BCCI in place, there is always this thinking to have a fresh start but the board will have little choice if the Indian team does well in the World Cup",
-            image : Image.resolveAssetSource(Images.news_img).uri
-        },
-    ]);
+    const pageNo = useRef(1)
+    const pageSize = useRef(20)
+    const totalRecords = useRef(0)
+
+    const [news, setNews] = useState([]);
 
     useEffect(() => {
+        const init = ()=>{
+            newsApi()
+        }
+        init()
         return ()=>{
         }
     }, []);
+
+    const newsApi = () => {
+        let apiUrl = WebConstants.base_url+WebConstants.post_list+"?per_page="+pageSize.current+"&page="+pageNo.current
+        WebApi.getRequest(apiUrl).then((res)=>{
+            totalRecords.current = res.totalRecords
+            const arr = res.data.map((e)=>{
+                console.log("e._links",e._links["wp:featuredmedia"][0])
+                const links = e._links["wp:featuredmedia"]
+                const title = e.title.rendered.replace(/<[^>]+>/g, '')
+                const content = e.content.rendered.replace(/<[^>]+>/g, '')
+                return ({
+                    id : e.id,
+                    title : title,
+                    content : content,
+                    mediaIdRef : links[0].href
+                })
+            })
+            const promises = arr.map((e)=>{
+                console.log("mediaIdRef",e.mediaIdRef)
+                return WebApi.getRequest(e.mediaIdRef)
+            })
+            Promise.all(promises).then((res)=>{
+                const news = arr.map((e,i)=>{
+                    const obj = {
+                        ...e,
+                        mediaUrl : res[i].data.media_details.sizes.thumbnail.gs_link
+                    }
+                    return obj
+                })
+                console.log("news",JSON.stringify(news))
+                setNews([...news])
+            })
+        })
+    }
+    const newsLoadMoreApi = () => {
+        let apiUrl = WebConstants.base_url+WebConstants.post_list+"?per_page="+pageSize.current+"&page="+pageNo.current
+        WebApi.getRequest(apiUrl).then((res)=>{
+            totalRecords.current = res.totalRecords
+            const arr = res.data.map((e)=>{
+                console.log("e._links",e._links["wp:featuredmedia"][0])
+                const links = e._links["wp:featuredmedia"]
+                const title = e.title.rendered.replace(/<[^>]+>/g, '')
+                const content = e.content.rendered.replace(/<[^>]+>/g, '')
+                return ({
+                    id : e.id,
+                    title : title,
+                    content : content,
+                    mediaIdRef : links[0].href
+                })
+            })
+            const promises = arr.map((e)=>{
+                console.log("mediaIdRef",e.mediaIdRef)
+                return WebApi.getRequest(e.mediaIdRef)
+            })
+            Promise.all(promises).then((res)=>{
+                const serverData = arr.map((e,i)=>{
+                    const obj = {
+                        ...e,
+                        mediaUrl : res[i].data.media_details.sizes.thumbnail.gs_link
+                    }
+                    return obj
+                })
+                console.log("news",JSON.stringify(news))
+                setNews([...news,...serverData])
+            })
+        })
+    }
+
+    const onLoadMoreNews = () => {
+        pageNo.current = pageNo.current + 1;
+        const MAX_PAGE_NO = Math.ceil(totalRecords.current / pageSize.current);
+        if (pageNo.current<=MAX_PAGE_NO) {
+            newsLoadMoreApi()
+        }
+    }
 
     const renderNews = ({item,index}) => {
         return (
@@ -73,7 +121,8 @@ const NewsScreen = ({navigation,route}) =>  {
                 <Text style={styles.txt}>News</Text>
                 <FlatList
                     data={news}
-                    renderItem={renderNews}/>
+                    renderItem={renderNews}
+                    onEndReached={onLoadMoreNews}/>
             </View>
         </SafeAreaView>
     )
@@ -88,11 +137,11 @@ const NewsItem = ({
     return (
         <View style={styles.newsItem}>
             <View style={{width:moderateScale(100)}}>
-                <Image source={{uri : item.image}} style={styles.newsImg}/>
+                <Image source={{uri : item.mediaUrl}} style={styles.newsImg}/>
             </View>
             <View style={{marginHorizontal:5,justifyContent:"center"}}>
                 <Text style={styles.newsTitle} numberOfLines={2}>{item.title}</Text>
-                <Text style={styles.newsDesc} numberOfLines={2}>{item.description}</Text>
+                <Text style={styles.newsDesc} numberOfLines={2}>{item.content}</Text>
             </View>
         </View>
     )
